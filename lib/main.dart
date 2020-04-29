@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 Future<Post> fetchPost() async {
   final response =
-      await http.get('https://jsonplaceholder.typicode.com/posts/1');
+      await http.get('https://jsonplaceholder.typicode.com/posts/1',
+      headers: {HttpHeaders.AUTHORIZATION:"Basic your_api_token_here"},//添加认证请求
+      );
   final respenseJson = json.decode(response.body);
   return new Post.fromJson(respenseJson);
 }
